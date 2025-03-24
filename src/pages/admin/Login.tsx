@@ -14,7 +14,7 @@ const AdminLogin = () => {
         >
           <div className="flex flex-col space-y-2 text-center mb-8">
             <h1 className="text-2xl font-semibold tracking-tight">
-              Admin Dashboard
+              Credible Blooms Admin
             </h1>
             <p className="text-sm text-admin-muted-foreground">
               Enter your credentials to access the admin panel

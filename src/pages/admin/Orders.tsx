@@ -382,7 +382,7 @@ const OrdersPage = () => {
     <div className="space-y-8">
       <PageHeader
         title="Orders"
-        description="View and manage customer orders for your flower shop."
+        description="View and manage customer orders for Credible Blooms."
       />
 
       <Card className="admin-glassmorphism">

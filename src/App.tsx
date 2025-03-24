@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,6 +12,7 @@ import AdminLogin from "./pages/admin/Login";
 import ProductsPage from "./pages/admin/Products";
 import OrdersPage from "./pages/admin/Orders";
 import BlogPage from "./pages/admin/Blog";
+import CustomersPage from "./pages/admin/Customers";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +31,7 @@ const App = () => (
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="products" element={<ProductsPage />} />
             <Route path="orders" element={<OrdersPage />} />
+            <Route path="customers" element={<CustomersPage />} />
             <Route path="blog" element={<BlogPage />} />
             {/* Other admin routes will be added here */}
           </Route>

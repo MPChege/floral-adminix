@@ -42,6 +42,11 @@ const links: SidebarLink[] = [
     label: "Orders",
   },
   {
+    icon: Users,
+    href: "/admin/customers",
+    label: "Customers",
+  },
+  {
     icon: FileText,
     href: "/admin/blog",
     label: "Blog",
@@ -50,11 +55,6 @@ const links: SidebarLink[] = [
     icon: Tag,
     href: "/admin/promotions",
     label: "Promotions",
-  },
-  {
-    icon: Users,
-    href: "/admin/customers",
-    label: "Customers",
   },
   {
     icon: Settings,
@@ -126,10 +126,10 @@ export function SidebarNav() {
       >
         <div className="flex items-center justify-between px-4 mb-8">
           {expanded ? (
-            <h2 className="text-xl font-bold">FlowerShop</h2>
+            <h2 className="text-xl font-bold">Credible Blooms</h2>
           ) : (
             <span className="w-8 h-8 flex items-center justify-center rounded-full bg-admin-accent text-admin-accent-foreground">
-              F
+              C
             </span>
           )}
           <button
@@ -198,7 +198,7 @@ export function SidebarNav() {
             className="fixed inset-y-0 left-0 w-64 bg-admin-sidebar text-admin-sidebar-foreground py-4 px-2 flex flex-col z-50 lg:hidden shadow-elegant-lg"
           >
             <div className="flex items-center justify-between px-4 mb-6">
-              <h2 className="text-xl font-bold">FlowerShop</h2>
+              <h2 className="text-xl font-bold">Credible Blooms</h2>
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-1.5 rounded-md hover:bg-white/10"

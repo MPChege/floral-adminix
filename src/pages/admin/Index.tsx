@@ -100,7 +100,7 @@ const AdminDashboard = () => {
     <div className="space-y-8">
       <PageHeader
         title={`${greeting}, Admin`}
-        description="Here's what's happening with your flower shop today."
+        description="Here's what's happening with Credible Blooms today."
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -173,7 +173,7 @@ const AdminDashboard = () => {
         <Card className="admin-glassmorphism">
           <CardHeader className="pb-2">
             <CardTitle>Quick Actions</CardTitle>
-            <CardDescription>Manage your flower shop</CardDescription>
+            <CardDescription>Manage your business</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 gap-3">
@@ -196,10 +196,10 @@ const AdminDashboard = () => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 className="flex items-center gap-3 bg-admin-muted p-4 rounded-lg"
-                onClick={() => navigate("/admin/blog")}
+                onClick={() => navigate("/admin/customers")}
               >
-                <FileText size={20} />
-                <span className="font-medium">Write Blog Post</span>
+                <Users size={20} />
+                <span className="font-medium">Manage Customers</span>
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.02 }}
