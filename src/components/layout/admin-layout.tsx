@@ -4,6 +4,7 @@ import { SidebarNav } from "./sidebar-nav";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
+import { CurrencySelector } from "@/components/ui-custom/currency-selector";
 
 export function AdminLayout() {
   const navigate = useNavigate();
@@ -43,14 +44,19 @@ export function AdminLayout() {
   return (
     <div className="flex h-screen bg-admin-background overflow-hidden">
       <SidebarNav />
-      <motion.main 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        className="flex-1 overflow-y-auto p-6 lg:p-8"
-      >
-        <Outlet />
-      </motion.main>
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <header className="h-16 border-b border-admin-sidebar flex items-center justify-end px-6 bg-white/50 backdrop-blur-sm">
+          <CurrencySelector />
+        </header>
+        <motion.main 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="flex-1 overflow-y-auto p-6 lg:p-8"
+        >
+          <Outlet />
+        </motion.main>
+      </div>
     </div>
   );
 }
