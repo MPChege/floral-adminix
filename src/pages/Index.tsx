@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Flower } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -18,14 +18,12 @@ const Index = () => {
           className="max-w-3xl mx-auto"
         >
           <div className="flex justify-center mb-6">
-            <div className="p-3 bg-white rounded-full shadow-elegant">
-              <Flower className="w-12 h-12 text-pink-500" />
-            </div>
+            <img 
+              src="/lovable-uploads/83e3c7aa-eb7e-4c51-b919-042f416e3192.png" 
+              alt="Credible Blooms Logo" 
+              className="h-32 md:h-40"
+            />
           </div>
-          
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
-            Credible Blooms
-          </h1>
           
           <p className="text-xl md:text-2xl text-gray-600 mb-8">
             Welcome to your premium flower shop management system

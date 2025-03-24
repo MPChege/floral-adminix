@@ -126,7 +126,13 @@ export function SidebarNav() {
       >
         <div className="flex items-center justify-between px-4 mb-8">
           {expanded ? (
-            <h2 className="text-xl font-bold">Credible Blooms</h2>
+            <div className="flex justify-center w-full">
+              <img 
+                src="/lovable-uploads/83e3c7aa-eb7e-4c51-b919-042f416e3192.png" 
+                alt="Credible Blooms Logo" 
+                className="h-10"
+              />
+            </div>
           ) : (
             <span className="w-8 h-8 flex items-center justify-center rounded-full bg-admin-accent text-admin-accent-foreground">
               C
@@ -198,7 +204,13 @@ export function SidebarNav() {
             className="fixed inset-y-0 left-0 w-64 bg-admin-sidebar text-admin-sidebar-foreground py-4 px-2 flex flex-col z-50 lg:hidden shadow-elegant-lg"
           >
             <div className="flex items-center justify-between px-4 mb-6">
-              <h2 className="text-xl font-bold">Credible Blooms</h2>
+              <div className="flex justify-center w-full">
+                <img 
+                  src="/lovable-uploads/83e3c7aa-eb7e-4c51-b919-042f416e3192.png" 
+                  alt="Credible Blooms Logo" 
+                  className="h-8"
+                />
+              </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-1.5 rounded-md hover:bg-white/10"
