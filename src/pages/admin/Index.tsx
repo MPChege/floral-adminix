@@ -31,6 +31,7 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
+  TooltipProps,
 } from "recharts";
 import { motion } from "framer-motion";
 import { useCurrency } from "@/contexts/CurrencyContext";
@@ -116,9 +117,14 @@ const AdminDashboard = () => {
   const totalRevenue = 42530;
   const formattedRevenue = formatCurrency(convertAmount(totalRevenue), currency);
 
-  // Updated tooltip formatter for charts
-  const tooltipFormatter = (value: number) => {
-    return [formatCurrency(convertAmount(value), currency), "Revenue"];
+  // Updated tooltip formatter for charts - fixed to handle ValueType
+  const tooltipFormatter = (value: number | string | Array<number | string>) => {
+    // Ensure we're working with a number
+    const numericValue = typeof value === 'number' ? value : parseFloat(value as string);
+    if (isNaN(numericValue)) {
+      return ["Invalid value", "Revenue"];
+    }
+    return [formatCurrency(convertAmount(numericValue), currency), "Revenue"];
   };
 
   return (
@@ -175,7 +181,7 @@ const AdminDashboard = () => {
                   stroke="#888"
                 />
                 <Tooltip
-                  formatter={(value: number) => tooltipFormatter(value)}
+                  formatter={tooltipFormatter}
                   contentStyle={{
                     borderRadius: "8px",
                     border: "none",
@@ -262,10 +268,10 @@ const AdminDashboard = () => {
                   stroke="#888"
                 />
                 <Tooltip
-                  formatter={(value, name) => [
+                  formatter={(value: number | string, name: string) => [
                     name === "sold" 
                       ? `${value} units` 
-                      : formatCurrency(convertAmount(value), currency),
+                      : formatCurrency(convertAmount(typeof value === 'number' ? value : parseFloat(value as string)), currency),
                     name === "sold" ? "Sold" : "Revenue",
                   ]}
                   contentStyle={{
