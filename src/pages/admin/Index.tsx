@@ -33,6 +33,8 @@ import {
   Bar,
 } from "recharts";
 import { motion } from "framer-motion";
+import { useCurrency } from "@/contexts/CurrencyContext";
+import { formatCurrency } from "@/lib/currency";
 
 // Sample data
 const salesData = [
@@ -84,8 +86,17 @@ const recentOrders = [
   },
 ];
 
+// Currency conversion rates (approximate)
+const conversionRates = {
+  USD: 1,
+  KSH: 128.5, // 1 USD = 128.5 KSH (example rate)
+  EUR: 0.85,
+  GBP: 0.75,
+};
+
 const AdminDashboard = () => {
   const navigate = useNavigate();
+  const { currency } = useCurrency();
 
   // Get current date for greeting
   const currentHour = new Date().getHours();
@@ -95,6 +106,20 @@ const AdminDashboard = () => {
   } else if (currentHour >= 18) {
     greeting = "Good Evening";
   }
+
+  // Convert USD values to the selected currency
+  const convertAmount = (amountInUSD: number) => {
+    return amountInUSD * conversionRates[currency];
+  };
+
+  // Format the total revenue based on current currency
+  const totalRevenue = 42530;
+  const formattedRevenue = formatCurrency(convertAmount(totalRevenue), currency);
+
+  // Updated tooltip formatter for charts
+  const tooltipFormatter = (value: number) => {
+    return [formatCurrency(convertAmount(value), currency), "Revenue"];
+  };
 
   return (
     <div className="space-y-8">
@@ -106,7 +131,7 @@ const AdminDashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatsCard
           title="Total Revenue"
-          value="$42,530"
+          value={formattedRevenue}
           change={{ value: 12.5, trend: "up" }}
           icon={<DollarSign size={20} />}
         />
@@ -145,12 +170,12 @@ const AdminDashboard = () => {
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                 <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke="#888" />
                 <YAxis
-                  tickFormatter={(value) => `$${value}`}
+                  tickFormatter={(value) => formatCurrency(convertAmount(value), currency).split(" ")[0]}
                   tick={{ fontSize: 12 }}
                   stroke="#888"
                 />
                 <Tooltip
-                  formatter={(value) => [`$${value}`, "Revenue"]}
+                  formatter={(value: number) => tooltipFormatter(value)}
                   contentStyle={{
                     borderRadius: "8px",
                     border: "none",
@@ -238,7 +263,9 @@ const AdminDashboard = () => {
                 />
                 <Tooltip
                   formatter={(value, name) => [
-                    name === "sold" ? `${value} units` : `$${value}`,
+                    name === "sold" 
+                      ? `${value} units` 
+                      : formatCurrency(convertAmount(value), currency),
                     name === "sold" ? "Sold" : "Revenue",
                   ]}
                   contentStyle={{
@@ -260,41 +287,48 @@ const AdminDashboard = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {recentOrders.map((order) => (
-                <motion.div
-                  key={order.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-admin-muted/50 transition-colors"
-                >
-                  <div className="flex flex-col">
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium">{order.id}</span>
-                      <span
-                        className={`text-xs px-2 py-0.5 rounded-full ${
-                          order.status === "Delivered"
-                            ? "bg-green-100 text-green-800"
-                            : order.status === "Shipped"
-                            ? "bg-blue-100 text-blue-800"
-                            : "bg-amber-100 text-amber-800"
-                        }`}
-                      >
-                        {order.status}
+              {recentOrders.map((order) => {
+                // Extract the number value from the USD string and convert
+                const valueString = order.total.replace('$', '');
+                const value = parseFloat(valueString);
+                const convertedTotal = formatCurrency(convertAmount(value), currency);
+                
+                return (
+                  <motion.div
+                    key={order.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-admin-muted/50 transition-colors"
+                  >
+                    <div className="flex flex-col">
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium">{order.id}</span>
+                        <span
+                          className={`text-xs px-2 py-0.5 rounded-full ${
+                            order.status === "Delivered"
+                              ? "bg-green-100 text-green-800"
+                              : order.status === "Shipped"
+                              ? "bg-blue-100 text-blue-800"
+                              : "bg-amber-100 text-amber-800"
+                          }`}
+                        >
+                          {order.status}
+                        </span>
+                      </div>
+                      <span className="text-sm text-admin-muted-foreground">
+                        {order.customer}
                       </span>
                     </div>
-                    <span className="text-sm text-admin-muted-foreground">
-                      {order.customer}
-                    </span>
-                  </div>
-                  <div className="flex flex-col items-end">
-                    <span className="font-medium">{order.total}</span>
-                    <span className="text-xs text-admin-muted-foreground">
-                      {order.date}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
+                    <div className="flex flex-col items-end">
+                      <span className="font-medium">{convertedTotal}</span>
+                      <span className="text-xs text-admin-muted-foreground">
+                        {order.date}
+                      </span>
+                    </div>
+                  </motion.div>
+                );
+              })}
               <button
                 className="w-full text-sm text-admin-accent hover:underline mt-2"
                 onClick={() => navigate("/admin/orders")}
