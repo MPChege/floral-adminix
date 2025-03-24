@@ -48,7 +48,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 
-// Sample data
+// Sample data with proper typing for status
 const sampleBlogPosts = [
   {
     id: "BLOG-001",
@@ -62,7 +62,7 @@ const sampleBlogPosts = [
     tags: ["Wedding", "Bouquets", "Flower Guide"],
     image:
       "https://images.unsplash.com/photo-1522748906645-95d8adfd52c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    status: "Published",
+    status: "Published" as const,
   },
   {
     id: "BLOG-002",
@@ -76,7 +76,7 @@ const sampleBlogPosts = [
     tags: ["Care Tips", "Fresh Flowers", "Home Decor"],
     image:
       "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    status: "Published",
+    status: "Published" as const,
   },
   {
     id: "BLOG-003",
@@ -90,7 +90,7 @@ const sampleBlogPosts = [
     tags: ["Seasonal Flowers", "Gardening", "Planning Guide"],
     image:
       "https://images.unsplash.com/photo-1520496938502-6b28f52c4638?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    status: "Draft",
+    status: "Draft" as const,
   },
 ];
 
