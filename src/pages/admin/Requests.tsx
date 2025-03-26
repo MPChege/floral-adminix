@@ -50,8 +50,22 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 
-// Sample request data
-const sampleRequests = [
+type RequestStatus = "Pending" | "Processed";
+
+interface FlowerRequest {
+  id: string;
+  customerName: string;
+  email: string;
+  flower: string;
+  quantity: number;
+  deliveryDate: string;
+  status: RequestStatus;
+  specialRequests: string;
+  createdAt: string;
+}
+
+// Sample request data with proper typing
+const sampleRequests: FlowerRequest[] = [
   {
     id: "REQ-001",
     customerName: "Emily Johnson",
@@ -108,20 +122,6 @@ const sampleRequests = [
     createdAt: "2023-09-24",
   }
 ];
-
-type RequestStatus = "Pending" | "Processed";
-
-interface FlowerRequest {
-  id: string;
-  customerName: string;
-  email: string;
-  flower: string;
-  quantity: number;
-  deliveryDate: string;
-  status: RequestStatus;
-  specialRequests: string;
-  createdAt: string;
-}
 
 const RequestsPage = () => {
   const [requests, setRequests] = useState<FlowerRequest[]>(sampleRequests);
