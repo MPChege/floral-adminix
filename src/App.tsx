@@ -12,6 +12,9 @@ import ProductsPage from "./pages/admin/Products";
 import OrdersPage from "./pages/admin/Orders";
 import BlogPage from "./pages/admin/Blog";
 import CustomersPage from "./pages/admin/Customers";
+import RequestsPage from "./pages/admin/Requests";
+import VideosPage from "./pages/admin/Videos";
+import FarmInfoPage from "./pages/admin/FarmInfo";
 import { CurrencyProvider } from "./contexts/CurrencyContext";
 
 const queryClient = new QueryClient();
@@ -34,6 +37,9 @@ const App = () => (
               <Route path="orders" element={<OrdersPage />} />
               <Route path="customers" element={<CustomersPage />} />
               <Route path="blog" element={<BlogPage />} />
+              <Route path="requests" element={<RequestsPage />} />
+              <Route path="videos" element={<VideosPage />} />
+              <Route path="farm-info" element={<FarmInfoPage />} />
               {/* Other admin routes will be added here */}
             </Route>
             

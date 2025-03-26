@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -14,6 +13,10 @@ import {
   Users,
   Tag,
   LogOut,
+  Video,
+  Flower,
+  MessageSquare,
+  Info
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -32,14 +35,24 @@ const links: SidebarLink[] = [
     label: "Dashboard",
   },
   {
-    icon: Package,
+    icon: Flower,
     href: "/admin/products",
-    label: "Products",
+    label: "Flowers",
   },
   {
-    icon: ShoppingBag,
-    href: "/admin/orders",
-    label: "Orders",
+    icon: MessageSquare,
+    href: "/admin/requests",
+    label: "Requests",
+  },
+  {
+    icon: Video,
+    href: "/admin/videos",
+    label: "Videos",
+  },
+  {
+    icon: Info,
+    href: "/admin/farm-info",
+    label: "Farm Info",
   },
   {
     icon: Users,
@@ -106,7 +119,6 @@ export function SidebarNav() {
 
   return (
     <>
-      {/* Mobile menu button */}
       <button
         onClick={toggleSidebar}
         className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-admin-sidebar text-admin-sidebar-foreground hover:bg-admin-accent"
@@ -114,7 +126,6 @@ export function SidebarNav() {
         {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
-      {/* Full sidebar for larger screens */}
       <motion.div
         layout
         className={cn(
@@ -128,7 +139,7 @@ export function SidebarNav() {
           {expanded ? (
             <div className="flex justify-center w-full">
               <img 
-                src="/lovable-uploads/83e3c7aa-eb7e-4c51-b919-042f416e3192.png" 
+                src="/lovable-uploads/bb4bbdd7-1fe9-424c-a1f1-d60a1bf12caf.jpeg" 
                 alt="Credible Blooms Logo" 
                 className="h-10"
               />
@@ -179,7 +190,6 @@ export function SidebarNav() {
         </div>
       </motion.div>
 
-      {/* Mobile sidebar overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -193,7 +203,6 @@ export function SidebarNav() {
         )}
       </AnimatePresence>
 
-      {/* Mobile sidebar menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -206,7 +215,7 @@ export function SidebarNav() {
             <div className="flex items-center justify-between px-4 mb-6">
               <div className="flex justify-center w-full">
                 <img 
-                  src="/lovable-uploads/83e3c7aa-eb7e-4c51-b919-042f416e3192.png" 
+                  src="/lovable-uploads/bb4bbdd7-1fe9-424c-a1f1-d60a1bf12caf.jpeg" 
                   alt="Credible Blooms Logo" 
                   className="h-8"
                 />

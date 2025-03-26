@@ -19,14 +19,14 @@ const Index = () => {
         >
           <div className="flex justify-center mb-6">
             <img 
-              src="/lovable-uploads/83e3c7aa-eb7e-4c51-b919-042f416e3192.png" 
+              src="/lovable-uploads/bb4bbdd7-1fe9-424c-a1f1-d60a1bf12caf.jpeg" 
               alt="Credible Blooms Logo" 
               className="h-32 md:h-40"
             />
           </div>
           
           <p className="text-xl md:text-2xl text-gray-600 mb-8">
-            Welcome to your premium flower shop management system
+            Welcome to your premium flower farm management system
           </p>
           
           <div className="flex justify-center">
@@ -42,7 +42,7 @@ const Index = () => {
 
       {/* Footer */}
       <footer className="p-6 text-center text-gray-500 text-sm">
-        <p>© {new Date().getFullYear()} Credible Blooms Flower Shop. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Credible Blooms Flower Farm. All rights reserved.</p>
       </footer>
     </div>
   );

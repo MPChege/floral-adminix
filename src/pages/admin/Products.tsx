@@ -28,7 +28,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   DropdownMenu,
@@ -61,67 +60,53 @@ const sampleProducts = [
   {
     id: "PRD-001",
     name: "Red Roses Bouquet",
-    category: "Bouquets",
-    price: 29.99,
-    stock: 45,
+    category: "Premium",
     featured: true,
     image: "https://images.unsplash.com/photo-1562690868-60bbe7293e94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80",
   },
   {
     id: "PRD-002",
     name: "Tulip Collection",
-    category: "Collections",
-    price: 24.99,
-    stock: 32,
+    category: "Extra Premium",
     featured: false,
     image: "https://images.unsplash.com/photo-1586968793473-d7c0049865f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80",
   },
   {
     id: "PRD-003",
     name: "Orchid Arrangement",
-    category: "Arrangements",
-    price: 39.99,
-    stock: 18,
+    category: "Extra Premium",
     featured: true,
     image: "https://images.unsplash.com/photo-1567748157439-651aca2ff064?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80",
   },
   {
     id: "PRD-004",
     name: "Sunflower Bouquet",
-    category: "Bouquets",
-    price: 22.99,
-    stock: 27,
+    category: "Premium",
     featured: false,
     image: "https://images.unsplash.com/photo-1543159821-9548b11973eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80",
   },
   {
     id: "PRD-005",
     name: "White Lily Bouquet",
-    category: "Bouquets",
-    price: 32.99,
-    stock: 15,
+    category: "Spray Roses",
     featured: false,
     image: "https://images.unsplash.com/photo-1508610048659-a06b669e3321?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80",
   },
   {
     id: "PRD-006",
     name: "Mixed Seasonal Flowers",
-    category: "Arrangements",
-    price: 34.99,
-    stock: 22,
+    category: "Premium",
     featured: true,
     image: "https://images.unsplash.com/photo-1587052755556-57605357fc41?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80",
   },
 ];
 
-const categories = ["Bouquets", "Arrangements", "Collections", "Singles", "Gifts"];
+const categories = ["Extra Premium", "Premium", "Spray Roses", "Collections", "Seasonal"];
 
 interface Product {
   id: string;
   name: string;
   category: string;
-  price: number;
-  stock: number;
   featured: boolean;
   image: string;
   description?: string;
@@ -139,9 +124,7 @@ const ProductsPage = () => {
   // Form state for adding/editing product
   const [formData, setFormData] = useState<Omit<Product, "id">>({
     name: "",
-    category: "Bouquets",
-    price: 0,
-    stock: 0,
+    category: "Premium",
     featured: false,
     image: "",
     description: "",
@@ -154,10 +137,10 @@ const ProductsPage = () => {
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value, type } = e.target as HTMLInputElement;
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: type === "number" ? parseFloat(value) : value,
+      [name]: value,
     });
   };
 
@@ -179,9 +162,7 @@ const ProductsPage = () => {
   const resetForm = () => {
     setFormData({
       name: "",
-      category: "Bouquets",
-      price: 0,
-      stock: 0,
+      category: "Premium",
       featured: false,
       image: "",
       description: "",
@@ -199,8 +180,6 @@ const ProductsPage = () => {
     setFormData({
       name: product.name,
       category: product.category,
-      price: product.price,
-      stock: product.stock,
       featured: product.featured,
       image: product.image,
       description: product.description || "",
@@ -214,7 +193,7 @@ const ProductsPage = () => {
   };
 
   const handleSaveProduct = () => {
-    if (!formData.name || formData.price <= 0) {
+    if (!formData.name) {
       toast({
         title: "Validation Error",
         description: "Please fill all required fields correctly.",
@@ -232,7 +211,7 @@ const ProductsPage = () => {
       );
       setProducts(updatedProducts);
       toast({
-        title: "Product Updated",
+        title: "Flower Updated",
         description: `${formData.name} has been updated successfully.`,
       });
     } else {
@@ -243,7 +222,7 @@ const ProductsPage = () => {
       };
       setProducts([...products, newProduct]);
       toast({
-        title: "Product Added",
+        title: "Flower Added",
         description: `${formData.name} has been added successfully.`,
       });
     }
@@ -259,8 +238,8 @@ const ProductsPage = () => {
       );
       setProducts(updatedProducts);
       toast({
-        title: "Product Deleted",
-        description: "The product has been removed from your inventory.",
+        title: "Flower Deleted",
+        description: "The flower has been removed from your catalogue.",
       });
       setIsDeleteDialogOpen(false);
       setProductToDelete(null);
@@ -270,23 +249,23 @@ const ProductsPage = () => {
   return (
     <div className="space-y-8">
       <PageHeader
-        title="Products"
-        description="Manage your flower shop products and inventory."
+        title="Flower Catalogue"
+        description="Manage your flower farm catalogue."
       >
         <Button
           onClick={openAddDialog}
           className="bg-admin-accent hover:bg-admin-accent/90 text-white"
         >
           <Plus className="h-4 w-4 mr-2" />
-          Add Product
+          Add Flower
         </Button>
       </PageHeader>
 
       <Card className="admin-glassmorphism">
         <CardHeader className="pb-3">
-          <CardTitle>Product Inventory</CardTitle>
+          <CardTitle>Flower Inventory</CardTitle>
           <CardDescription>
-            Manage your products, update stock, and modify pricing
+            Manage your flower catalogue and categorize them
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -294,7 +273,7 @@ const ProductsPage = () => {
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-admin-muted-foreground" />
               <Input
-                placeholder="Search products..."
+                placeholder="Search flowers..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-9"
@@ -316,8 +295,8 @@ const ProductsPage = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem>Low Stock Items</DropdownMenuItem>
-                <DropdownMenuItem>Featured Products</DropdownMenuItem>
+                <DropdownMenuItem>Featured Flowers</DropdownMenuItem>
+                <DropdownMenuItem>Premium Flowers</DropdownMenuItem>
                 <DropdownMenuItem>Newly Added</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -330,8 +309,7 @@ const ProductsPage = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuItem>Name (A-Z)</DropdownMenuItem>
-                <DropdownMenuItem>Price (Low-High)</DropdownMenuItem>
-                <DropdownMenuItem>Stock (Low-High)</DropdownMenuItem>
+                <DropdownMenuItem>Category</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -343,16 +321,14 @@ const ProductsPage = () => {
                   <TableHead className="w-[80px]">Image</TableHead>
                   <TableHead>Name</TableHead>
                   <TableHead className="hidden md:table-cell">Category</TableHead>
-                  <TableHead className="text-right">Price</TableHead>
-                  <TableHead className="text-center hidden md:table-cell">Stock</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredProducts.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={6} className="h-24 text-center">
-                      No products found.
+                    <TableCell colSpan={4} className="h-24 text-center">
+                      No flowers found.
                     </TableCell>
                   </TableRow>
                 ) : (
@@ -382,20 +358,6 @@ const ProductsPage = () => {
                       </TableCell>
                       <TableCell className="hidden md:table-cell">
                         {product.category}
-                      </TableCell>
-                      <TableCell className="text-right">${product.price.toFixed(2)}</TableCell>
-                      <TableCell className="text-center hidden md:table-cell">
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs ${
-                            product.stock < 20
-                              ? "bg-red-100 text-red-800"
-                              : product.stock < 50
-                              ? "bg-amber-100 text-amber-800"
-                              : "bg-green-100 text-green-800"
-                          }`}
-                        >
-                          {product.stock}
-                        </span>
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
@@ -427,7 +389,7 @@ const ProductsPage = () => {
         </CardContent>
         <CardFooter className="flex justify-between">
           <div className="text-sm text-admin-muted-foreground">
-            Showing {filteredProducts.length} of {products.length} products
+            Showing {filteredProducts.length} of {products.length} flowers
           </div>
         </CardFooter>
       </Card>
@@ -437,24 +399,24 @@ const ProductsPage = () => {
         <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
             <DialogTitle>
-              {editingProduct ? "Edit Product" : "Add New Product"}
+              {editingProduct ? "Edit Flower" : "Add New Flower"}
             </DialogTitle>
             <DialogDescription>
               {editingProduct
-                ? "Update product details and inventory information."
-                : "Add a new product to your flower shop inventory."}
+                ? "Update flower details and information."
+                : "Add a new flower to your farm catalogue."}
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-6 py-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Product Name</Label>
+                <Label htmlFor="name">Flower Name</Label>
                 <Input
                   id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  placeholder="Red Roses Bouquet"
+                  placeholder="Red Roses"
                   required
                 />
               </div>
@@ -477,33 +439,6 @@ const ProductsPage = () => {
                 </Select>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="price">Price ($)</Label>
-                <Input
-                  id="price"
-                  name="price"
-                  type="number"
-                  step="0.01"
-                  value={formData.price}
-                  onChange={handleInputChange}
-                  placeholder="29.99"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="stock">Stock</Label>
-                <Input
-                  id="stock"
-                  name="stock"
-                  type="number"
-                  value={formData.stock}
-                  onChange={handleInputChange}
-                  placeholder="50"
-                  required
-                />
-              </div>
-            </div>
             <div className="space-y-2">
               <Label htmlFor="image">Image URL</Label>
               <Input
@@ -517,7 +452,7 @@ const ProductsPage = () => {
                 <div className="mt-2 h-20 w-20 rounded-md overflow-hidden">
                   <img
                     src={formData.image}
-                    alt="Product preview"
+                    alt="Flower preview"
                     className="h-full w-full object-cover"
                   />
                 </div>
@@ -530,7 +465,7 @@ const ProductsPage = () => {
                 name="description"
                 value={formData.description}
                 onChange={handleInputChange}
-                placeholder="A beautiful arrangement of fresh red roses..."
+                placeholder="A beautiful arrangement of fresh flowers..."
                 rows={3}
               />
             </div>
@@ -543,7 +478,7 @@ const ProductsPage = () => {
                 onChange={handleCheckboxChange}
                 className="h-4 w-4 rounded border-gray-300 text-admin-accent focus:ring-admin-accent"
               />
-              <Label htmlFor="featured">Featured Product</Label>
+              <Label htmlFor="featured">Featured Flower</Label>
             </div>
           </div>
           <DialogFooter>
@@ -560,7 +495,7 @@ const ProductsPage = () => {
               onClick={handleSaveProduct}
               className="bg-admin-accent hover:bg-admin-accent/90 text-white"
             >
-              {editingProduct ? "Update Product" : "Add Product"}
+              {editingProduct ? "Update Flower" : "Add Flower"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -572,7 +507,7 @@ const ProductsPage = () => {
           <DialogHeader>
             <DialogTitle>Confirm Deletion</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete this product? This action cannot be
+              Are you sure you want to delete this flower? This action cannot be
               undone.
             </DialogDescription>
           </DialogHeader>
@@ -587,7 +522,7 @@ const ProductsPage = () => {
               variant="destructive"
               onClick={handleDeleteProduct}
             >
-              Delete Product
+              Delete Flower
             </Button>
           </DialogFooter>
         </DialogContent>
